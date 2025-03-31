@@ -35,6 +35,9 @@ class Cube(gym.Env):
             4: 'orange',  # L
             5: 'red',     # R
         }
+    def get_state(self):
+        flat = np.concatenate([self.state[face].flatten() for face in self.state])
+        return flat
 
     # ------------------------
     #   FACE-BASED ROTATIONS
@@ -151,7 +154,7 @@ class Cube(gym.Env):
     def shuffle(self,n=100):
         for _ in range(n):
             action = np.random.randint(self.action_space.n)
-            print(action)
+            # print(action)
             self.step(action)
         return self.state
 
